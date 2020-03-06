@@ -1,0 +1,19 @@
+.box {
+  outline: 2px solid red;
+  border: 1px solid blue;
+  user-select: none;
+  transition: linear .3s;
+  background-color: #161616;
+  color: white;
+  width: 500px;
+  height: 500px;
+  animation: ani linear 1s infinite;
+
+  a {
+    color: purple
+  }
+
+  span {
+    border: 1px dashed red;
+  }
+}

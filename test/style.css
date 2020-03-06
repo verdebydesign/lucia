@@ -1,0 +1,19 @@
+.box {
+  outline: 2px solid red;
+  border: 1px solid blue;
+  user-select: none;
+  transition: linear .3s;
+  background-color: #161616;
+  color: white;
+  width: 500px;
+  height: 500px;
+  animation: ani linear 1s infinite;
+}
+
+@keyframes ani {
+  0% { background-color: #161616; }
+
+  50% { background-color: #490633; }
+
+  100% { background-color: #031633; }
+}

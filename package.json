@@ -1,0 +1,40 @@
+{
+  "name": "lucia",
+  "version": "0.0.1",
+  "description": "A compiler.",
+  "main": "cli/cli.js",
+  "scripts": {
+    "lint": "eslint .",
+    "watch": "babel -w src -d cli",
+    "start": "babel src -d cli"
+  },
+  "bin": {
+    "lucia": "cli/cli.js"
+  },
+  "author": "Simao Nziaka <sdnziaka@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.7",
+    "@babel/plugin-proposal-optional-chaining": "^7.8.3",
+    "@babel/preset-env": "^7.8.7",
+    "@verdebydesign/car": "git+https://github.com/verdebydesign/car.git",
+    "autoprefixer": "^9.7.4",
+    "handlebars": "^4.7.3",
+    "node-sass": "^4.13.1",
+    "postcss": "^7.0.27",
+    "precss": "^4.0.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.8.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/verdebydesign/lucia.git"
+  },
+  "bugs": {
+    "url": "https://github.com/verdebydesign/lucia/issues"
+  },
+  "homepage": "https://github.com/verdebydesign/lucia#readme"
+}
