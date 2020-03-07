@@ -21,6 +21,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
  * @param {string} out The processed output css file
  */
 function cssRunner(src, out) {
+  var cb = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
+
+  var _cb = typeof cb === 'function' ? cb : function () {};
+
   _fs["default"].readFile(src, function (err, data) {
     if (err) {
       throw err;
@@ -46,6 +50,8 @@ function cssRunner(src, out) {
           }
         });
       }
+
+      return _cb();
     })["catch"](console.error);
   });
 }

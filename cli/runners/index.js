@@ -18,6 +18,7 @@ var _handlebars = _interopRequireDefault(require("./handlebars"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var runners = function runners(config) {
+  var cb = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {};
   var extension = config.extension,
       src = config.src,
       out = config.out,
@@ -25,27 +26,27 @@ var runners = function runners(config) {
 
   switch (extension) {
     case '.html':
-      (0, _html["default"])(src, out);
+      (0, _html["default"])(src, out, cb);
       break;
 
     case '.css':
-      (0, _css["default"])(src, out);
+      (0, _css["default"])(src, out, cb);
       break;
 
     case '.js':
-      (0, _javascript["default"])(src, out);
+      (0, _javascript["default"])(src, out, cb);
       break;
 
     case '.sass':
-      (0, _sass["default"])(src, out);
+      (0, _sass["default"])(src, out, cb);
       break;
 
     case '.scss':
-      (0, _sass["default"])(src, out);
+      (0, _sass["default"])(src, out, cb);
       break;
 
     case '.hbs':
-      (0, _handlebars["default"])(src, out, templateDataPath);
+      (0, _handlebars["default"])(src, out, cb, templateDataPath);
       break;
   }
 };

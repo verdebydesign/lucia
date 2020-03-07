@@ -20,7 +20,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
  * @param {string} dataPath The path to the template data
  */
 function hbsRunner(src, out) {
-  var dataPath = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  var cb = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
+  var dataPath = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+
+  var _cb = typeof cb === 'function' ? cb : function () {};
 
   _fs["default"].readFile(src, function (err, data) {
     if (err) {
@@ -43,5 +46,7 @@ function hbsRunner(src, out) {
         }
       });
     }
+
+    return _cb();
   });
 }

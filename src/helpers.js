@@ -41,15 +41,15 @@ export function transpileJavascript(src, out) {
 // Arguments callbacks
 
 export function help() {
-	process.stdout.write([
+	console.log([
 		'Lucia. A compiler.',
 		'',
-		'-e, --exp              The file extension',
-		'-o, --out              The compiled output',
+		'-e, --exp\t\tThe file extension',
+		'-o, --out\t\tThe compiled output',
 		'',
 		'Misc',
-		'-h, --help             command\'s help',
+		'-h, --help\t\tcommand\'s help',
 		'',
-		'Get involved           https://github.com/verdebydesign/lucia'
+		'Get involved\t\thttps://github.com/verdebydesign/lucia'
 	].join('\n'));
 }

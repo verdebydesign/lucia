@@ -19,6 +19,10 @@ var babel = require('@babel/core');
  * @param {string} out The processed output file
  */
 function jsRunner(src, out) {
+  var cb = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
+
+  var _cb = typeof cb === 'function' ? cb : function () {};
+
   _fs["default"].readFile(src, function (err, data) {
     if (err) {
       throw err;
@@ -42,6 +46,8 @@ function jsRunner(src, out) {
           }
         });
       }
+
+      return _cb();
     })["catch"](console.error);
   });
 }

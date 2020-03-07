@@ -83,26 +83,10 @@ function main(args) {
 
       var templateDataPath = args['--hbs-data'] || ''; // if the template file for handlebars is a js file, transpile it
 
-      var _path$parse2 = _path["default"].parse(templateDataPath),
-          templateDataPathExt = _path$parse2.ext,
-          templateDataPathBase = _path$parse2.base;
+      var templateDataPathExt = _path["default"].extname(templateDataPath);
 
       if (templateDataPathExt === '.js') {
-        // check temporary dir for creation
-        if (!_fs["default"].existsSync(_settings["default"]["default"].tmpFolder)) {
-          _fs["default"].mkdirSync(_settings["default"]["default"].tmpFolder, {
-            recursive: true
-          });
-        } // transpile code to a temporary location
-
-
-        (0, _runners["default"])({
-          extension: '.js',
-          src: _path["default"].normalize(templateDataPath),
-          out: _path["default"].join(_settings["default"]["default"].tmpFolder, templateDataPathBase)
-        }); // use the new location of the js data
-
-        templateDataPath = _path["default"].join(_settings["default"]["default"].tmpFolder, templateDataPathBase);
+        templateDataPath = (0, _helpers.transpileJavascript)(templateDataPath);
       } // use the correct runner and output a result
 
 
