@@ -9,16 +9,23 @@ import path from 'path';
  * @param {string} out The processed output file
  * @param {string} dataPath The path to the template data
  */
-export default function hbsRunner(src, out, dataPath = {}) {
+export default function hbsRunner(src, out, cb = () => {}, dataPath = {}) {
+	const _cb = typeof cb === 'function' ? cb : () => {};
+
 	fs.readFile(src, (err, data) => {
 		if (err) {
 			throw err;
 		}
 
 		const template = handlebars.compile(data.toString(), {});
+		let templateData = require(path.resolve(dataPath));
+
+		if (Object.entries(templateData).length && templateData.default) {
+			templateData = templateData.default;
+		}
 
 		if (dataPath.length) {
-			const result = template(require(path.resolve(dataPath)), {});
+			const result = template(templateData, {});
 
 			result.length && fs.writeFile(out, result, err => {
 				if (err) {
@@ -26,5 +33,7 @@ export default function hbsRunner(src, out, dataPath = {}) {
 				}
 			});
 		}
+
+		return _cb();
 	});
 }

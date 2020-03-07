@@ -9,7 +9,9 @@ import fs from 'fs';
  * @param {string} src The source css file
  * @param {string} out The processed output css file
  */
-export default function cssRunner(src, out) {
+export default function cssRunner(src, out, cb = () => {}) {
+	const _cb = typeof cb === 'function' ? cb : () => {};
+
 	fs.readFile(src, (err, data) => {
 		if (err) {
 			throw err;
@@ -36,6 +38,8 @@ export default function cssRunner(src, out) {
 						}
 					});
 				}
+
+				return _cb();
 			})
 			.catch(console.error);
 	});

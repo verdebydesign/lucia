@@ -7,7 +7,9 @@ import fs from 'fs';
  * @param {string} src The source file
  * @param {string} out The processed output file
  */
-export default function sassRunner(src, out) {
+export default function sassRunner(src, out, cb = () => {}) {
+	const _cb = typeof cb === 'function' ? cb : () => {};
+
 	fs.readFile(src, err => {
 		if (err) {
 			throw err;
@@ -36,6 +38,8 @@ export default function sassRunner(src, out) {
 					}
 				});
 			}
+
+			return _cb();
 		});
 	});
 }

@@ -6,7 +6,8 @@ Object.defineProperty(exports, "__esModule", {
 exports["default"] = void 0;
 var settings = {
   "default": {
-    outputFolder: 'out'
+    outputFolder: 'out',
+    tmpFolder: '.tmp'
   },
   outputExtensionFrom: {
     '.scss': '.css',

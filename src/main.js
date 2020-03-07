@@ -2,7 +2,7 @@ import path from 'path';
 import fs from 'fs';
 
 import runners from './runners';
-import { isKnownExt } from './helpers';
+import { isKnownExt, transpileJavascript } from './helpers';
 import settings from './settings';
 
 export default function main(args) {
@@ -59,7 +59,7 @@ export default function main(args) {
 			// if an output directory is found, check for creation
 			actualOdir.length && fs.exists(actualOdir, exists => {
 				if (!exists) {
-					fs.mkdir(actualOdir, err => {
+					fs.mkdir(actualOdir, { recursive: true }, err => {
 						if (err) {
 							throw err;
 						}
@@ -68,7 +68,14 @@ export default function main(args) {
 			});
 
 			// if handlebars, check for template data path
-			const templateDataPath = args['--hbs-data'] || '';
+			let templateDataPath = args['--hbs-data'] || '';
+
+			// if the template file for handlebars is a js file, transpile it
+			const templateDataPathExt = path.extname(templateDataPath);
+
+			if (templateDataPathExt === '.js') {
+				templateDataPath = transpileJavascript(templateDataPath);
+			}
 
 			// use the correct runner and output a result
 			runners({

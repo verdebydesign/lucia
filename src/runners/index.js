@@ -4,7 +4,7 @@ import sassRunner from './sass';
 import htmlRunner from './html';
 import hbsRunner from './handlebars';
 
-const runners = config => {
+const runners = (config, cb = () => {}) => {
 	const {
 		extension,
 		src,
@@ -13,12 +13,12 @@ const runners = config => {
 	} = config;
 
 	switch (extension) {
-	case '.html': htmlRunner(src, out); break;
-	case '.css': cssRunner(src, out); break;
-	case '.js': jsRunner(src, out); break;
-	case '.sass': sassRunner(src, out); break;
-	case '.scss': sassRunner(src, out); break;
-	case '.hbs': hbsRunner(src, out, templateDataPath); break;
+	case '.html': htmlRunner(src, out, cb); break;
+	case '.css': cssRunner(src, out, cb); break;
+	case '.js': jsRunner(src, out, cb); break;
+	case '.sass': sassRunner(src, out, cb); break;
+	case '.scss': sassRunner(src, out, cb); break;
+	case '.hbs': hbsRunner(src, out, cb, templateDataPath); break;
 	}
 };
 

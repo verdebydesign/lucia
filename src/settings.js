@@ -1,6 +1,7 @@
 const settings = {
 	default: {
-		outputFolder: 'out'
+		outputFolder: 'out',
+		tmpFolder: '.tmp'
 	},
 	outputExtensionFrom: {
 		'.scss': '.css',

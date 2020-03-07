@@ -29,8 +29,14 @@ function hbsRunner(src, out) {
 
     var template = _handlebars["default"].compile(data.toString(), {});
 
+    var templateData = require(_path["default"].resolve(dataPath));
+
+    if (Object.entries(templateData).length && templateData["default"]) {
+      templateData = templateData["default"];
+    }
+
     if (dataPath.length) {
-      var result = template(require(_path["default"].resolve(dataPath)), {});
+      var result = template(templateData, {});
       result.length && _fs["default"].writeFile(out, result, function (err) {
         if (err) {
           throw err;

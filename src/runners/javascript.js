@@ -9,7 +9,9 @@ import fs from 'fs';
  * @param {string} src The source file
  * @param {string} out The processed output file
  */
-export default function jsRunner(src, out) {
+export default function jsRunner(src, out, cb = () => {}) {
+	const _cb = typeof cb === 'function' ? cb : () => {};
+
 	fs.readFile(src, (err, data) => {
 		if (err) {
 			throw err;
@@ -35,6 +37,8 @@ export default function jsRunner(src, out) {
 						}
 					});
 				}
+
+				return _cb();
 			})
 			.catch(console.error);
 	});
