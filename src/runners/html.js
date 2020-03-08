@@ -6,13 +6,14 @@ import fs from 'fs';
  * Process html
  * @param {string} src The source file
  * @param {string} out The processed output file
+ * @param {(err) => {}} cb Run on success or error
  */
 export default function htmlRunner(src, out, cb = () => {}) {
 	const _cb = typeof cb === 'function' ? cb : () => {};
 
 	fs.readFile(src, (err, data) => {
 		if (err) {
-			throw err;
+			return cb(err);
 		}
 
 		const result = minify(data.toString(), {
@@ -33,10 +34,10 @@ export default function htmlRunner(src, out, cb = () => {}) {
 
 		fs.writeFile(out, `${result}\n`, err => {
 			if (err) {
-				throw err;
+				return cb(err);
 			}
 		});
 
-		return _cb();
+		return _cb(null);
 	});
 }

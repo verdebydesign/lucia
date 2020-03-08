@@ -8,13 +8,15 @@ import fs from 'fs';
  * Process javascript
  * @param {string} src The source file
  * @param {string} out The processed output file
+ * @param {(err) => {}} cb Run on success or error
+ *
  */
 export default function jsRunner(src, out, cb = () => {}) {
 	const _cb = typeof cb === 'function' ? cb : () => {};
 
 	fs.readFile(src, (err, data) => {
 		if (err) {
-			throw err;
+			return cb(err);
 		}
 
 		babel.transformAsync(data, {
@@ -27,19 +29,19 @@ export default function jsRunner(src, out, cb = () => {}) {
 			.then(result => {
 				fs.writeFile(out, `${result.code}\n`, err => {
 					if (err) {
-						throw err;
+						return cb(err);
 					}
 				});
 				if (result.map) {
 					fs.writeFile(`${out}.map`, result.map.mappings, err => {
 						if (err) {
-							throw err;
+							return cb(err);
 						}
 					});
 				}
 
-				return _cb();
+				return _cb(null);
 			})
-			.catch(console.error);
+			.catch(cb);
 	});
 }

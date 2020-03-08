@@ -8,13 +8,14 @@ import fs from 'fs';
  * Process css
  * @param {string} src The source css file
  * @param {string} out The processed output css file
+ * @param {(err) => {}} cb Run on success or error
  */
 export default function cssRunner(src, out, cb = () => {}) {
 	const _cb = typeof cb === 'function' ? cb : () => {};
 
 	fs.readFile(src, (err, data) => {
 		if (err) {
-			throw err;
+			return cb(err);
 		}
 
 		postcss([precss, autoprefixer])
@@ -28,19 +29,19 @@ export default function cssRunner(src, out, cb = () => {}) {
 			.then(result => {
 				fs.writeFile(out, `${result.css}\n`, err => {
 					if (err) {
-						throw err;
+						return cb(err);
 					}
 				});
 				if (result.map) {
 					fs.writeFile(`${out}.map`, result.map.toString(), err => {
 						if (err) {
-							throw err;
+							return cb(err);
 						}
 					});
 				}
 
-				return _cb();
+				return _cb(null);
 			})
-			.catch(console.error);
+			.catch(cb);
 	});
 }

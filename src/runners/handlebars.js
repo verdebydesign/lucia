@@ -8,13 +8,14 @@ import path from 'path';
  * @param {string} src The source file
  * @param {string} out The processed output file
  * @param {string} dataPath The path to the template data
+ * @param {(err) => {}} cb Run on success or error
  */
-export default function hbsRunner(src, out, cb = () => {}, dataPath = {}) {
+export default function hbsRunner(src, out, dataPath = {}, cb = () => {}) {
 	const _cb = typeof cb === 'function' ? cb : () => {};
 
 	fs.readFile(src, (err, data) => {
 		if (err) {
-			throw err;
+			return _cb(err);
 		}
 
 		const template = handlebars.compile(data.toString(), {});
@@ -29,11 +30,11 @@ export default function hbsRunner(src, out, cb = () => {}, dataPath = {}) {
 
 			result.length && fs.writeFile(out, result, err => {
 				if (err) {
-					throw err;
+					return _cb(err);
 				}
 			});
 		}
 
-		return _cb();
+		return _cb(null);
 	});
 }

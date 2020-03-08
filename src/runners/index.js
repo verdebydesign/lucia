@@ -18,7 +18,7 @@ const runners = (config, cb = () => {}) => {
 	case '.js': jsRunner(src, out, cb); break;
 	case '.sass': sassRunner(src, out, cb); break;
 	case '.scss': sassRunner(src, out, cb); break;
-	case '.hbs': hbsRunner(src, out, cb, templateDataPath); break;
+	case '.hbs': hbsRunner(src, out, templateDataPath, cb); break;
 	}
 };
 
