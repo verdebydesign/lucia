@@ -9,22 +9,23 @@ const defined = {
 		flag: true,
 		cb: help,
 		combine: false,
-		longform: '--help'
+		otherforms: ['h', 'help', '--help']
 	},
 	'-e': {
 		var: true,
-		longform: '--ext'
+		otherforms: ['e', '--ext', 'ext', 'extension']
 	},
 	'-o': {
 		var: true,
-		longform: '--out'
+		otherforms: ['o', '--out', 'output']
 	},
 	'-i': {
 		var: true,
-		longform: '--input'
+		otherforms: ['i', '--input', 'input']
 	},
 	'--hbs-data': {
-		var: true
+		var: true,
+		otherforms: ['hbst']
 	}
 };
 
