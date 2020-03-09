@@ -1,4 +1,4 @@
-# LUCIA
+# Lucia
 
 A compiler.
 
